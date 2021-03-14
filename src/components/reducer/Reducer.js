@@ -1,7 +1,18 @@
+import { Redirect } from "react-router";
+
 const initialState = {
   data: [],
   detailProduct: [],
-  newProduct: {},
+  newProduct: {
+    id: "",
+    name: "",
+    description: "",
+    stock: 0,
+    price: 0,
+    discount: 0,
+    sex: "",
+    color: "",
+  },
 };
 
 const productReducer = (state = initialState, action) => {
@@ -18,8 +29,16 @@ const productReducer = (state = initialState, action) => {
     };
   }
   if (action.type === "ADD_PRODUCT") {
-    alert("Succes add product");
-    console.log(action.value);
+    return {
+      ...state,
+      newProduct: action.value,
+    };
+  }
+  if (action.type === "UPDATE_PRODUCT") {
+    alert("Succes update product");
+  }
+  if (action.type === "DELETE") {
+    alert("Succes delete product");
   }
   return state;
 };

@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import chek from "../../img/add.png";
+import errImg from "../../img/error-image-generic.png";
 import user from "../../img/user.png";
 
 const ListProduct = ({ data, toDetail, getProduct }) => {
   useEffect(() => {
     getProduct();
   }, [getProduct]);
+  console.log(data);
   const logedIn = localStorage.getItem("login");
   const userName = localStorage.getItem("name");
   // const role = localStorage.getItem("role");
@@ -104,6 +105,7 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
                   }
                 })
                 .map((e, index) => {
+                  console.log(e.images);
                   return (
                     <div
                       key={index}
@@ -111,11 +113,22 @@ const ListProduct = ({ data, toDetail, getProduct }) => {
                       onClick={() => toDetail(e.id)}
                     >
                       <Link to={`/product/${e.id}`}>
-                        {/* <img
-                          className="img-thumbnail"
-                          src={e.images[0].url}
-                          width="185px"
-                        /> */}
+                        {e.images.length > 0 && (
+                          <img
+                            className="img-thumbnail"
+                            src={e.images[0].url}
+                            width="145px"
+                            height="145px"
+                          />
+                        )}
+                        {(e.images === null || e.images.length === 0) && (
+                          <img
+                            className="img-thumbnail"
+                            src={errImg}
+                            height="145px"
+                            width="145px"
+                          />
+                        )}
                         <h3>
                           IDR{" "}
                           {e.discount

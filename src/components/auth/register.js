@@ -23,7 +23,7 @@ const Register = () => {
         newUser
       );
       if (res.data.code === 201) {
-        <Redirect push to="/login" />;
+        alert("succes register");
       } else {
         alert("error register");
       }

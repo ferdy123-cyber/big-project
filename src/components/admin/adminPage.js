@@ -112,7 +112,9 @@ const AdminPage = ({ data, history, getProduct }) => {
               <span>Your product</span>
             </div>
             <div className="row d-flex justify-content-center">
-              <p className="new">{data.length}</p>
+              <Link to="seller/my-product">
+                <p className="new">{data.length}</p>
+              </Link>
             </div>
           </div>
         </div>

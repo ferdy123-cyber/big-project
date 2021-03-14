@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import AdminRoute from "./components/adminRoute";
+import UserRoute from "./components/userRouter";
 import Home from "./components/home/home";
 import Shop from "./components/list-product/list-product";
 import Product from "./components/detail-product/product";
@@ -11,6 +12,9 @@ import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import AdminPage from "./components/admin/adminPage";
 import AddProduct from "./components/admin/add-product";
+import MyProduct from "./components/admin/myProduct";
+import Edit from "./components/admin/editRemoveProduct";
+import Chart from "./components/shop/chart";
 
 function App() {
   return (
@@ -23,6 +27,9 @@ function App() {
         <Route component={Login} path="/login" exact />
         <AdminRoute component={AdminPage} path="/seller" exact />
         <AdminRoute component={AddProduct} path="/seller/add-product" exact />
+        <AdminRoute component={MyProduct} path="/seller/my-product" exact />
+        <AdminRoute component={Edit} path="/seller/my-product/:id" exact />
+        <UserRoute component={Chart} path="/chart/:id" exact />
       </Switch>
     </Router>
   );

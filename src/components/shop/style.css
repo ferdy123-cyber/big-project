@@ -1,0 +1,33 @@
+.listCart {
+}
+
+.marginR {
+  margin-right: 50px;
+}
+
+.prdName {
+  font-size: 20px;
+}
+
+.prdPrice {
+  font-size: 14px;
+  margin-top: -10px;
+  font-weight: bold;
+}
+
+.bottomCart span {
+  margin-left: 15px;
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.rmv p {
+  margin-top: -4px;
+}
+
+.bottomCart button {
+  height: 25px;
+  font-size: 12px;
+  margin-left: 20px;
+}

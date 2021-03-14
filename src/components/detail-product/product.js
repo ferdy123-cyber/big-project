@@ -9,13 +9,30 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Carousel } from "react-bootstrap";
 import UserManage from "../user-manage";
+import errImg from "../../img/error-image-generic.png";
 
 const Product = (props) => {
   const { detailProduct, toDetail, match } = props;
   useEffect(() => {
     toDetail(match.params.id);
   }, [toDetail, match.params]);
+  const createTransaction = () => {
+    axios
+      .post("http://localhost:8000/transaction", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+      })
+      .catch((err) => {
+        alert("error");
+        console.log(err);
+      });
+  };
   const logedIn = localStorage.getItem("login");
+
   return (
     <div className="div2">
       <nav class="navProduct navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded">
@@ -48,21 +65,6 @@ const Product = (props) => {
                 <p class="nav-link">Shop</p>
               </li>
             </ul>
-
-            {/* <form class="searchBar d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                onChange={(e) => setInput(e.target.value)}
-              />
-              {logedIn === "true" && role === "admin" && (
-                <Link to='/manage-product'>
-                  <img src={chek} width="30px" height="30px" />
-                </Link>
-              )}
-            </form> */}
           </div>
           <div class="d-flex justify-content-end">
             <img className="chekout" src={chek} width="25px" height="25px" />
@@ -72,27 +74,32 @@ const Product = (props) => {
       </nav>
       <div className="deskripsi row d-flex justify-content-center">
         <div className="left col-3">
-          <Carousel>
-            {detailProduct.images &&
-              detailProduct.images.map((e, index) => {
-                return (
-                  <Carousel.Item interval={1800}>
-                    <img
-                      className="editimg img-fluid d-block w-100 "
-                      src={e.url}
-                      alt="First slide"
-                    />
-                  </Carousel.Item>
-                );
-              })}
-          </Carousel>
-          {/* <img class="img-fluid" src="" id="target" />
-          <button type="button" class="btnEdit btn btn-dark">
-            prev
-          </button>
-          <button type="button" class="btnEdit btn btn-dark">
-            next
-          </button> */}
+          {detailProduct.images !== null && (
+            <Carousel>
+              {detailProduct.images &&
+                detailProduct.images.map((e, index) => {
+                  console.log(e.url);
+                  if (e.url !== null) {
+                    return (
+                      <Carousel.Item interval={1800}>
+                        <img
+                          className="editimg img-fluid d-block w-100 "
+                          src={e.url}
+                          alt="First slide"
+                        />
+                      </Carousel.Item>
+                    );
+                  }
+                })}
+            </Carousel>
+          )}
+          {!(detailProduct.images !== null) && (
+            <img
+              className="editimg img-fluid d-block w-100 "
+              src={errImg}
+              alt="First slide"
+            />
+          )}
         </div>
         <div className="right col-4">
           <div className="storeName">ferdy's store</div>
@@ -117,7 +124,6 @@ const Product = (props) => {
           <div class="card text-dark bg-light mb-3">
             <div class="card-header">Variant</div>
             <div class="card-body">
-              <h5 class="card-title">{detailProduct.color}</h5>
               <p className="size">
                 Size :
                 <select className="size">
@@ -129,13 +135,11 @@ const Product = (props) => {
               </p>
               <div className="row d-flex justify-content-center">
                 <button
-                  class="logoutbtn2 btn btn-outline-dark col-5"
+                  onClick={() => createTransaction()}
+                  class="loginbtn2 btn btn-dark col-5"
                   type="submit"
                 >
-                  + Add to cart
-                </button>
-                <button class="loginbtn2 btn btn-dark col-5" type="submit">
-                  Buy now
+                  Add to chart
                 </button>
               </div>
             </div>
